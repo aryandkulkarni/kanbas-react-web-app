@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./Dashboard.css"
 export default function Dashboard() {
   return (
     <div id="wd-dashboard">
@@ -7,14 +8,14 @@ export default function Dashboard() {
       <div id="wd-dashboard-courses">
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1234/Home">
+            to="/Kanbas/Courses/1234/Home">
             <img src="/images/reactjs.jpg" width={200} />
             <div>
               <h5>
-                 CS1234 React JS
+                CS1234 React JS
               </h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                CS1234
               </p>
               <button> Go </button>
             </div>
@@ -22,14 +23,14 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1235/Home">
+            to="/Kanbas/Courses/1235/Home">
             <img src="/images/golang.jpg" width={200} />
             <div>
               <h5>
-                 CS1235 GoLang
+                CS1235 GoLang
               </h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                CS1235
               </p>
               <button> Go </button>
             </div>
@@ -37,14 +38,14 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1236/Home">
+            to="/Kanbas/Courses/1236/Home">
             <img src="/images/csharp.jpg" width={200} />
             <div>
               <h5>
-                 CS1236 C#
+                CS1236 C#
               </h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                CS1236
               </p>
               <button> Go </button>
             </div>
@@ -52,14 +53,14 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1237/Home">
+            to="/Kanbas/Courses/1237/Home">
             <img src="/images/rust.jpg" width={200} />
             <div>
               <h5>
-                 CS1237 Rust
+                CS1237 Rust
               </h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                CS1237
               </p>
               <button> Go </button>
             </div>
@@ -67,14 +68,14 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1238/Home">
+            to="/Kanbas/Courses/1238/Home">
             <img src="/images/haskell.jpg" width={200} />
             <div>
               <h5>
-                 CS1238 Haskell
+                CS1238 Haskell
               </h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                CS1238
               </p>
               <button> Go </button>
             </div>
@@ -82,14 +83,14 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1239/Home">
+            to="/Kanbas/Courses/1239/Home">
             <img src="/images/ocaml.jpg" width={200} />
             <div>
               <h5>
-                 CS1239 OCaml
+                CS1239 OCaml
               </h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                CS1239
               </p>
               <button> Go </button>
             </div>
@@ -97,14 +98,14 @@ export default function Dashboard() {
         </div>
         <div className="wd-dashboard-course">
           <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/1230/Home">
+            to="/Kanbas/Courses/1230/Home">
             <img src="/images/racket.jpg" width={200} />
             <div>
               <h5>
-                 CS1230 Racket
+                CS1230 Racket
               </h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                CS1230
               </p>
               <button> Go </button>
             </div>
