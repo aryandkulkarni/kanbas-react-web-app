@@ -11,7 +11,9 @@
 }
 
 .kanbas-nav-link .nav-text {
-    margin-left: 8px;
+    text-align: center;
+    color: white;
+    font-size: 14px;
 }
 
 .kanbas-nav-link:hover {
@@ -49,6 +51,19 @@
 .kanbas-nav img {
     margin: 15px auto;
     display: block;
+}
+
+.active-tab {
+    background-color: white;
+    color: red;
+}
+
+.active-tab .nav-text {
+    color: red;
+}
+
+.active-tab svg {
+    color: red !important;
 }
 
 @media (max-width: 768px) {
