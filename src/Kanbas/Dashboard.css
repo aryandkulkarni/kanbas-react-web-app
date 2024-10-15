@@ -1,71 +1,63 @@
 #wd-dashboard {
     padding: 20px;
     font-family: Arial, sans-serif;
-}
-
-#wd-dashboard-title,
-#wd-dashboard-published {
-    text-align: flex-start;
+  }
+  
+  #wd-dashboard-title {
     margin: 10px 0;
-}
-
-#wd-dashboard-courses {
+  }
+  
+  #wd-dashboard-published {
+    margin: 20px 0 10px;
+  }
+  
+  #wd-dashboard-courses {
     display: flex;
-    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 30px;
-    padding: 20px;
-}
-
-.wd-dashboard-course {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding-left: 30px;
+  }
+  
+  .wd-dashboard-course {
+    background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
     width: 250px;
-    padding: 15px;
-    background-color: #f9f9f9;
-}
-
-.wd-dashboard-course:hover {
+    flex: 0 0 auto;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .wd-dashboard-course:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.wd-dashboard-course-link {
+  }
+  
+  .wd-dashboard-course-link {
     text-decoration: none;
     color: inherit;
-}
-
-.wd-dashboard-course img {
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.wd-dashboard-course h5 {
+  }
+  
+  .wd-dashboard-course img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .wd-dashboard-course h5 {
     font-size: 1.1em;
     margin: 10px 0;
-}
-
-.wd-dashboard-course-title {
+    padding: 0 10px;
+  }
+  
+  .wd-dashboard-course-title {
     color: #555;
     font-weight: bold;
     margin-bottom: 10px;
-}
-
-.wd-dashboard-course button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-}
-
-.wd-dashboard-course button:hover {
-    background-color: #0056b3;
-}
+    padding: 0 10px;
+  }
+  
+  .wd-dashboard-course div {
+    padding-bottom: 10px;
+  }
+  
