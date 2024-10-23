@@ -1,7 +1,24 @@
+import VariablesAndConstants from "./VariablesAndConstants";
+import VariableTypes from "./VariableTypes";
+import IfElse from "./IfElse";
+import BooleanVariables from "./BooleanVariables";
+import TernaryOperator from "./TernaryOperator";
+import ConditionalOutputIfElse from "./ConditionalOutputIfElse";
+import ConditionalOutputInLine from "./ConditionalOutputInLine";
+import LegacyFunctions from "./LegacyFunctions";
+
 export default function Lab3() {
-    return (
-      <div>
-        <h2>Lab 3</h2>
-      </div>
-    );
+  return (
+    <div id="wd-lab3">
+      <h3>Lab 3</h3>
+      <VariablesAndConstants/>
+      <VariableTypes/>
+      <IfElse/>
+      <BooleanVariables/>
+      <TernaryOperator/>
+      <ConditionalOutputIfElse/>
+      <ConditionalOutputInLine/>
+      <LegacyFunctions/>
+    </div>
+  );
 }
