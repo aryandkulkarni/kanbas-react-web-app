@@ -10,10 +10,16 @@ import ObjectStateVariable from "./ObjectStateVariable";
 import ArrayStateVariable from "./ArrayStateVariable";
 import ParentStateComponent from "./ParentStateComponent";
 import ChildStateComponent from "./ChildStateComponent";
+import { useState } from 'react';
+import ReduxExamples from "./ReduxExamples";
+import HelloRedux from "./ReduxExamples/HelloRedux";
+import AddRedux from "./ReduxExamples/AddRedux";
+import ToDoList from "./ReduxExamples/todos/TodoList";
 export default function Lab4() {
   function sayHello() {
     alert("Hello");
   }
+  const [counter, setCounter] = useState(0);
   return (
     <div id="wd-passing-functions">
       <h2>Lab 4</h2>
@@ -28,6 +34,11 @@ export default function Lab4() {
       <ObjectStateVariable />
       <ArrayStateVariable />
       <ParentStateComponent />
+      <ChildStateComponent counter={counter} setCounter={setCounter} />
+      <ReduxExamples/>
+      <HelloRedux />
+      <AddRedux />
+      <ToDoList />
     </div>
 );}
 
