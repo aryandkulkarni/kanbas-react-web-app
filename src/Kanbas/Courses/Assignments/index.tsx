@@ -1,26 +1,24 @@
 import React from "react";
-import { FaSearch, FaPlus, FaCheckCircle } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
+import { FaSearch, FaPlus, FaCheckCircle, FaTrash } from "react-icons/fa";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { assignments } from "../../Database";
-
-interface Assignment {
-  _id: string;
-  title: string;
-  course: string;
-  description: string;
-  points: number;
-  dueDate: string;
-  availableDate: string;
-  submissionType: string;
-  assignmentGroup: string;
-}
+import { useSelector, useDispatch } from "react-redux";
+import { deleteAssignment } from "./reducer";
 
 export default function Assignments() {
   const { cid } = useParams<{ cid: string }>();
-  const filteredAssignments: Assignment[] = assignments.filter(
-    (assignment) => assignment.course === cid
+  const assignments = useSelector((state: any) => state.assignmentsReducer);
+  const filteredAssignments = assignments.filter(
+    (assignment: any) => assignment.course === cid
   );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleDelete = (assignmentId: string) => {
+    if (window.confirm("Are you sure you want to remove the assignment?")) {
+      dispatch(deleteAssignment(assignmentId));
+    }
+  };
 
   return (
     <div id="wd-assignments" className="container mt-4">
@@ -39,7 +37,12 @@ export default function Assignments() {
           <button className="btn btn-outline-secondary me-2">
             <FaPlus /> Group
           </button>
-          <button className="btn btn-danger">
+          <button
+            className="btn btn-danger"
+            onClick={() =>
+              navigate(`/Kanbas/Courses/${cid}/Assignments/new`)
+            }
+          >
             <FaPlus /> Assignment
           </button>
         </div>
@@ -48,7 +51,7 @@ export default function Assignments() {
         ASSIGNMENTS
       </h5>
       <ul id="wd-assignment-list" className="list-group">
-        {filteredAssignments.map((assignment) => (
+        {filteredAssignments.map((assignment: any) => (
           <li
             key={assignment._id}
             className="list-group-item d-flex justify-content-between align-items-start border-start border-success mb-2"
@@ -63,13 +66,26 @@ export default function Assignments() {
               <br />
               <small>Course: {assignment.course}</small>
               <br />
-              <small>Available from: {new Date(assignment.availableDate).toLocaleDateString()} | Due: {new Date(assignment.dueDate).toLocaleDateString()} | {assignment.points} pts</small>
+              <small>
+                Available from:{" "}
+                {new Date(assignment.availableDate).toLocaleDateString()} | Due:{" "}
+                {new Date(assignment.dueDate).toLocaleDateString()} |{" "}
+                {assignment.points} pts
+              </small>
               <br />
               <small>Submission Type: {assignment.submissionType}</small>
               <br />
               <small>Assignment Group: {assignment.assignmentGroup}</small>
             </div>
-            <FaCheckCircle className="text-success" size={20} />
+            <div className="d-flex align-items-center">
+              <FaCheckCircle className="text-success me-3" size={20} />
+              <FaTrash
+                className="text-danger"
+                size={20}
+                style={{ cursor: "pointer" }}
+                onClick={() => handleDelete(assignment._id)}
+              />
+            </div>
           </li>
         ))}
       </ul>

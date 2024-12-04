@@ -1,38 +1,71 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { assignments } from "../../Database";
-
-interface Assignment {
-  _id: string;
-  title: string;
-  course: string;
-  description: string;
-  points: number;
-  dueDate: string;
-  availableDate: string;
-}
+import { useSelector, useDispatch } from "react-redux";
+import { addAssignment, updateAssignment } from "./reducer";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams<{ cid: string; aid: string }>();
-  const assignment: Assignment | undefined = assignments.find(
-    (assignment) => assignment._id === aid && assignment.course === cid
-  );
+  const assignments = useSelector((state: any) => state.assignmentsReducer);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  if (!assignment) {
-    return (
-      <div id="wd-assignments-editor" className="container mt-4">
-        <h1>Assignment Not Found</h1>
-        <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-danger mt-3">
-          Back to Assignments
-        </Link>
-      </div>
-    );
-  }
+  const isNewAssignment = aid === "new";
+
+  const [assignment, setAssignment] = useState<any>({
+    _id: "",
+    title: "",
+    course: cid,
+    description: "",
+    points: 0,
+    dueDate: "",
+    availableDate: "",
+    submissionType: "online",
+    assignmentGroup: "",
+  });
+
+  useEffect(() => {
+    if (!isNewAssignment) {
+      const existingAssignment = assignments.find(
+        (a: any) => a._id === aid && a.course === cid
+      );
+      if (existingAssignment) {
+        setAssignment(existingAssignment);
+      } else {
+        alert("Assignment not found");
+        navigate(`/Kanbas/Courses/${cid}/Assignments`);
+      }
+    }
+  }, [aid, cid, assignments, isNewAssignment, navigate]);
+
+  const handleSave = () => {
+    if (isNewAssignment) {
+      const newAssignment = {
+        ...assignment,
+        _id: new Date().getTime().toString(),
+      };
+      dispatch(addAssignment(newAssignment));
+    } else {
+      dispatch(updateAssignment(assignment));
+    }
+    navigate(`/Kanbas/Courses/${cid}/Assignments`);
+  };
+
+  const handleCancel = () => {
+    navigate(`/Kanbas/Courses/${cid}/Assignments`);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { id, value } = e.target;
+    setAssignment((prevState: any) => ({
+      ...prevState,
+      [id.replace("wd-", "")]: value,
+    }));
+  };
 
   return (
     <div id="wd-assignments-editor" className="container mt-4">
-      <h1>{assignment.title}</h1>
+      <h1>{isNewAssignment ? "New Assignment" : assignment.title}</h1>
       <form>
         <div className="mb-3">
           <label htmlFor="wd-title" className="form-label">
@@ -41,7 +74,8 @@ export default function AssignmentEditor() {
           <input
             id="wd-title"
             className="form-control"
-            defaultValue={assignment.title}
+            value={assignment.title}
+            onChange={handleChange}
           />
         </div>
         <div className="mb-3">
@@ -52,7 +86,8 @@ export default function AssignmentEditor() {
             id="wd-description"
             className="form-control"
             rows={4}
-            defaultValue={assignment.description}
+            value={assignment.description}
+            onChange={handleChange}
           ></textarea>
         </div>
         <div className="row mb-3">
@@ -64,98 +99,76 @@ export default function AssignmentEditor() {
               id="wd-points"
               className="form-control"
               type="number"
-              defaultValue={assignment.points}
+              value={assignment.points}
+              onChange={handleChange}
             />
           </div>
           <div className="col-md-6">
-            <label htmlFor="wd-due-date" className="form-label">
+            <label htmlFor="wd-dueDate" className="form-label">
               Due Date
             </label>
             <input
-              id="wd-due-date"
+              id="wd-dueDate"
               className="form-control"
               type="date"
-              defaultValue={assignment.dueDate}
+              value={assignment.dueDate}
+              onChange={handleChange}
             />
           </div>
         </div>
         <div className="mb-3">
-          <label htmlFor="wd-available-date" className="form-label">
+          <label htmlFor="wd-availableDate" className="form-label">
             Available From
           </label>
           <input
-            id="wd-available-date"
+            id="wd-availableDate"
             className="form-control"
             type="date"
-            defaultValue={assignment.availableDate}
+            value={assignment.availableDate}
+            onChange={handleChange}
           />
         </div>
-        {}
-        <h4 className="mt-4">Assign</h4>
         <div className="mb-3">
-          <label htmlFor="wd-assign-to" className="form-label">
-            Assign To
-          </label>
-          <input
-            id="wd-assign-to"
-            className="form-control"
-            type="text"
-            placeholder="Enter name or email"
-          />
-        </div>
-        <div className="row mb-3">
-          <div className="col-md-6">
-            <label htmlFor="wd-assign-due" className="form-label">
-              Due
-            </label>
-            <input
-              id="wd-assign-due"
-              className="form-control"
-              type="date"
-              defaultValue={assignment.dueDate}
-            />
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="wd-assign-until" className="form-label">
-              Until
-            </label>
-            <input
-              id="wd-assign-until"
-              className="form-control"
-              type="date"
-              defaultValue={assignment.dueDate}
-            />
-          </div>
-        </div>
-        {}
-        <div className="mb-3">
-          <label htmlFor="wd-submission-type" className="form-label">
+          <label htmlFor="wd-submissionType" className="form-label">
             Submission Type
           </label>
-          <select id="wd-submission-type" className="form-select" defaultValue="online">
+          <select
+            id="wd-submissionType"
+            className="form-select"
+            value={assignment.submissionType}
+            onChange={handleChange}
+          >
             <option value="online">Online</option>
             <option value="offline">Offline</option>
           </select>
         </div>
         <div className="mb-3">
-          <label htmlFor="wd-assignment-group" className="form-label">
+          <label htmlFor="wd-assignmentGroup" className="form-label">
             Assignment Group
           </label>
           <input
-            id="wd-assignment-group"
+            id="wd-assignmentGroup"
             className="form-control"
             type="text"
-            placeholder="Enter assignment group"
+            value={assignment.assignmentGroup}
+            onChange={handleChange}
           />
         </div>
-        {}
         <div className="d-flex justify-content-between mt-4">
-          <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-danger">
+          <button
+            type="button"
+            onClick={handleCancel}
+            className="btn btn-danger"
+          >
             Cancel
-          </Link>
-          <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-success">
+          </button>
+          <button
+            type="button"
+            onClick={handleSave}
+            className="btn btn-success"
+          >
             Save
-          </Link>
+          </button>
         </div>
       </form>
     </div>
