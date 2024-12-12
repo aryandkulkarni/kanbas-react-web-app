@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import * as client from "./client";
 import { setCurrentUser } from "./reducer";
-import * as db from "../Database";
-
 export default function Signup() {
   const [userData, setUserData] = useState<any>({
     username: "",
@@ -17,22 +16,9 @@ export default function Signup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const signup = () => {
-    const existingUser = db.users.find(
-      (u: any) => u.username === userData.username
-    );
-    if (existingUser) {
-      alert("Username already exists");
-      return;
-    }
-
-    const newUser = {
-      ...userData,
-      id: new Date().getTime().toString(),
-    };
-
-    db.users.push(newUser);
-    dispatch(setCurrentUser(newUser));
+  const signup = async () => {
+    const currentUser = await client.signup(userData);
+    dispatch(setCurrentUser(currentUser));
     navigate("/Kanbas/Account/Profile");
   };
 

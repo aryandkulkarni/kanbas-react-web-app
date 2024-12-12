@@ -8,6 +8,7 @@ import ProtectedRoute from "./Account/ProtectedRoute";
 import CourseProtectedRoute from "./Account/CourseProtectedRoute";
 import { courses as initialCourses } from "./Database";
 import "./styles.css";
+import Session from "./Account/Session";
 
 export default function Kanbas() {
   const [courses, setCourses] = useState<any[]>(initialCourses);
@@ -55,6 +56,7 @@ export default function Kanbas() {
   };
 
   return (
+    <Session>
     <div id="wd-kanbas">
       <KanbasNavigation />
       <div className="wd-main-content-offset p-3">
@@ -88,5 +90,6 @@ export default function Kanbas() {
         </Routes>
       </div>
     </div>
+    </Session>
   );
 }
