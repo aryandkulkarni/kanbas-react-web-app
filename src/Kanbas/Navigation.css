@@ -1,0 +1,79 @@
+.kanbas-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 5px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.kanbas-nav-link .nav-text {
+    text-align: center;
+    color: white;
+    font-size: 14px;
+}
+
+.kanbas-nav-link:hover {
+    background-color: white;
+    color: red;
+}
+
+.kanbas-nav-link.active {
+    background-color: white;
+    color: red;
+}
+
+#wd-dashboard-link,
+#wd-course-link,
+#wd-calendar-link,
+#wd-inbox-link,
+#wd-labs-link {
+    color: white;
+}
+
+#wd-account-link {
+    color: white;
+}
+
+.kanbas-nav {
+    display: block;
+    width: 110px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background-color: black;
+    z-index: 2;
+}
+
+.kanbas-nav img {
+    margin: 15px auto;
+    display: block;
+}
+
+.active-tab {
+    background-color: white;
+    color: red;
+}
+
+.active-tab .nav-text {
+    color: red;
+}
+
+.active-tab svg {
+    color: red !important;
+}
+
+@media (max-width: 768px) {
+    .kanbas-nav {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+    .kanbas-nav {
+        display: block;
+    }
+}
