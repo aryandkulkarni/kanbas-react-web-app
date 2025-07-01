@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaSearch, FaPlus, FaCheckCircle, FaTrash } from "react-icons/fa";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteAssignment } from "./reducer";
+import * as assignmentClient from "./client";
+import * as coursesClient from "../client";
 
 export default function Assignments() {
   const { cid } = useParams<{ cid: string }>();
@@ -14,11 +16,11 @@ export default function Assignments() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleDelete = (assignmentId: string) => {
-    if (window.confirm("Are you sure you want to remove the assignment?")) {
-      dispatch(deleteAssignment(assignmentId));
-    }
-  };
+
+  const handleDelete = async (assignmentId: string) => {
+    await assignmentClient.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+    };
 
   return (
     <div id="wd-assignments" className="container mt-4">

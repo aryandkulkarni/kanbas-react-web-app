@@ -2,42 +2,31 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "./reducer";
 import { useNavigate } from "react-router-dom";
-import * as db from "../Database";
+import * as client from "./client";
 
 export default function Profile() {
   const [profile, setProfile] = useState<any>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-
-  useEffect(() => {
-    if (!currentUser) {
-      navigate("/Kanbas/Account/Signin");
-    } else {
-      setProfile(currentUser);
-    }
-  }, [currentUser, navigate]);
-
-  const updateProfile = () => {
-    if (!profile) return;
-
-    const userIndex = db.users.findIndex(
-      (u: any) => u.id === currentUser.id
-    );
-
-    if (userIndex !== -1) {
-      db.users[userIndex] = profile;
-      dispatch(setCurrentUser(profile));
-      alert("Profile updated successfully");
-    } else {
-      alert("User not found");
-    }
+  const updateProfile = async () => {
+    const updatedProfile = await client.updateUser(profile);
+    dispatch(setCurrentUser(updatedProfile));
   };
 
-  const signout = () => {
+  const fetchProfile = () => {
+    if (!currentUser) return navigate("/Kanbas/Account/Signin");
+    setProfile(currentUser);
+  };
+
+  useEffect(() => { fetchProfile(); }, []);
+
+  const signout = async () => {
+    await client.signout();
     dispatch(setCurrentUser(null));
     navigate("/Kanbas/Account/Signin");
   };
+
 
   return (
     <div className="wd-profile-screen">
@@ -107,13 +96,7 @@ export default function Profile() {
             <option value="FACULTY">Faculty</option>
             <option value="STUDENT">Student</option>
           </select>
-          <button
-            onClick={updateProfile}
-            className="btn btn-primary w-100 mb-2"
-            id="wd-save-btn"
-          >
-            Save Changes
-          </button>
+          <button onClick={updateProfile} className="btn btn-primary w-100 mb-2"> Update </button>
           <button
             onClick={signout}
             className="btn btn-danger w-100 mb-2"
